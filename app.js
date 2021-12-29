@@ -9,6 +9,7 @@ const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./errors/NotFoundError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(requestLogger);
 app.post('/signin', loginValidation, login);
 app.post('/signup', userValidation, createUser);
 
@@ -31,6 +33,8 @@ app.use('/cards', require('./routes/cards'));
 app.use('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
+
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 mongoose.connect('mongodb://localhost:27017/mestodb', {});
