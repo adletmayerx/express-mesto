@@ -142,3 +142,7 @@ module.exports.getUserInfo = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.signOut = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'cookies deleted' });
+};
