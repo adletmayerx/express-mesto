@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    throw new NotAuthError('Авторизуйтесь, пожалуйста');
+    throw new NotAuthError('Авторизуйтесь, пожалуйстаlfff');
   }
   req.user = payload;
   next();
