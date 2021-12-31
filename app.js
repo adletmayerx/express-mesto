@@ -45,13 +45,14 @@ const allowCrossDomain = (req, res, next) => {
   res.header('Access-Control-Allow-Headers', '*');
   next();
 };
-app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(requestLogger);
+
+app.use(allowCrossDomain);
 app.post('/signin', loginValidation, login);
 app.post('/signup', userValidation, createUser);
 app.delete('/signout', signOut);
