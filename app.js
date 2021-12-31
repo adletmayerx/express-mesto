@@ -18,9 +18,9 @@ const app = express();
 
 const corsAllowed = [
   'https://api.artursadrtdinov.nomoredomains.rocks',
-  'https://api.artursadrtdinov.nomoredomains.rocks',
+  'http://api.artursadrtdinov.nomoredomains.rocks',
   'https://asadrtdinov.nomoredomains.rocks',
-  'https://asadrtdinov.nomoredomains.rocks',
+  'http://asadrtdinov.nomoredomains.rocks',
   'https://localhost:3000',
   'http://localhost:3000',
 ];
