@@ -20,8 +20,8 @@ const corsAllowed = [
   'https://praktikum.tk',
   'http://praktikum.tk',
   'localhost:3000',
-  'http://asadrtdinov.nomoredomains.rocks/',
-  'https://asadrtdinov.nomoredomains.rocks/',
+  'http://asadrtdinov.nomoredomains.rocks',
+  'https://asadrtdinov.nomoredomains.rocks',
 ];
 
 app.use(
