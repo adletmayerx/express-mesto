@@ -16,21 +16,8 @@ require('dotenv').config();
 const { PORT = 3000, BASE_PATH } = process.env;
 const app = express();
 
-// const corsAllowed = [
-//   'https://praktikum.tk',
-//   'http://praktikum.tk',
-//   'localhost:3000',
-//   'http://asadrtdinov.nomoredomains.rocks',
-//   'https://asadrtdinov.nomoredomains.rocks',
-// ];
-
-const corsOptions = {
-  origin: '*',
-  credentials: true, // access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
+app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
