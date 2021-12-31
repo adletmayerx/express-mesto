@@ -10,10 +10,11 @@ const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 
 require('dotenv').config();
 
-const { PORT = 3000, BASE_PATH } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
 // const corsAllowed = [
@@ -39,12 +40,7 @@ const app = express();
 // );
 
 // app.options('*', cors());'
-
-const allowCrossDomain = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-};
+app.use(cors);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,7 +48,6 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use(allowCrossDomain);
 app.post('/signin', loginValidation, login);
 app.post('/signup', userValidation, createUser);
 app.delete('/signout', signOut);
@@ -73,5 +68,4 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {});
 
 app.listen(PORT, () => {
   console.log('Ссылка на сервер');
-  console.log(BASE_PATH);
 });

@@ -5,12 +5,10 @@ const { JWT_SECRET = 'secret-jwt-key' } = process.env;
 
 module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
   let payload;
 
   try {
     payload = jwt.verify(token, JWT_SECRET);
-    console.log(payload);
   } catch (err) {
     throw new NotAuthError('Авторизуйтесь, пожалуйста');
   }
