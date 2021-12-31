@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-// const cors = require('cors');
+const cors = require('cors');
 const { createUser, login, signOut } = require('./controllers/users');
 const { userValidation, loginValidation } = require('./middlewares/validation');
 const auth = require('./middlewares/auth');
@@ -24,25 +24,13 @@ const app = express();
 //   'https://asadrtdinov.nomoredomains.rocks',
 // ];
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin(origin, callback) {
-//       if (corsAllowed.includes(origin) || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//   }),
-// );
+const corsOptions = {
+  origin: '*',
+  credentials: true, // access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
-// app.options('*', cors());
-
-app.options((req, res) => {
-  res.status(200).header('Access-Control-Allow-Headers', '*').header('Access-Control-Allow-Origin', '*').end();
-});
-
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
