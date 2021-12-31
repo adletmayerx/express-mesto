@@ -126,12 +126,12 @@ module.exports.login = (req, res, next) => {
         },
       );
 
-      res.setHeader('Set-Cookie', cookie.serialize('jwt', token, {
+      res.cookie('jwt', token, {
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7,
         sameSite: 'none',
         secure: true,
-      }))
+      })
         .send({ message: 'Логин успешный' });
     })
     .catch(next);
