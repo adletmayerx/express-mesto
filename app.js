@@ -16,8 +16,30 @@ require('dotenv').config();
 const { PORT = 3000, BASE_PATH } = process.env;
 const app = express();
 
-app.use(cors());
+const corsAllowed = [
+  'https://api.artursadrtdinov.nomoredomains.rocks',
+  'https://api.artursadrtdinov.nomoredomains.rocks',
+  'https://asadrtdinov.nomoredomains.rocks',
+  'https://asadrtdinov.nomoredomains.rocks',
+  'https://localhost:3000',
+  'http://localhost:3000',
+];
+
+app.use(
+  cors({
+    credentials: true,
+    origin(origin, callback) {
+      if (corsAllowed.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  }),
+);
+
 app.options('*', cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
