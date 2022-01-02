@@ -98,7 +98,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  const { JWT_SECRET = 'secret-jwt-key' } = process.env;
+  const { NODE_ENV, JWT_SECRET } = process.env;
 
   User.findOne({ email }).select('+password')
     .then((user) => {
@@ -119,7 +119,7 @@ module.exports.login = (req, res, next) => {
         {
           _id: user._id,
         },
-        JWT_SECRET,
+        NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
         {
           expiresIn: '7d',
         },
