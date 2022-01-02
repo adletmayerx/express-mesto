@@ -3,19 +3,45 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const { createUser, login, signOut } = require('./controllers/users');
 const { userValidation, loginValidation } = require('./middlewares/validation');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
-require('dotenv').config();
+// const cors = require('./middlewares/cors');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
-app.use(cors);
+// app.use(cors);
+
+const corsAllowed = [
+  'https://praktikum.tk',
+  'http://praktikum.tk',
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'http://asadrtdinov.nomoredomains.rocks',
+  'https://asadrtdinov.nomoredomains.rocks',
+];
+
+require('dotenv').config();
+
+app.use(
+  cors({
+    credentials: true,
+    origin(origin, callback) {
+      if (corsAllowed.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  }),
+);
+
+app.options('*', cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
