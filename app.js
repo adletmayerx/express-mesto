@@ -49,4 +49,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {});
 
 app.listen(PORT, () => {
   console.log('Ссылка на сервер');
+  console.log(PORT);
+  console.log(process.env.JWT_SECRET);
 });
