@@ -4,8 +4,8 @@ const ALLOWED_CORS = [
   'http://praktikum.tk',
   'http://localhost:3000',
   'https://localhost:3000',
-  'http://asadrtdinov.nomoredomains.rocks/',
-  'https://asadrtdinov.nomoredomains.rocks/',
+  'http://asadrtdinov.nomoredomains.rocks',
+  'https://asadrtdinov.nomoredomains.rocks',
 ];
 
 module.exports = (req, res, next) => {
