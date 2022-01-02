@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-// const cors = require('cors');
 const { createUser, login, signOut } = require('./controllers/users');
 const { userValidation, loginValidation } = require('./middlewares/validation');
 const auth = require('./middlewares/auth');
@@ -12,34 +12,9 @@ const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 
-require('dotenv').config();
-
 const { PORT = 3001 } = process.env;
 const app = express();
 
-// const corsAllowed = [
-//   'https://api.artursadrtdinov.nomoredomains.rocks',
-//   'http://api.artursadrtdinov.nomoredomains.rocks',
-//   'https://asadrtdinov.nomoredomains.rocks',
-//   'http://asadrtdinov.nomoredomains.rocks',
-//   'https://localhost:3000',
-//   'http://localhost:3000',
-// ];
-
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin(origin, callback) {
-//       if (corsAllowed.includes(origin) || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//   }),
-// );
-
-// app.options('*', cors());'
 app.use(cors);
 
 app.use(bodyParser.json());
@@ -47,6 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', loginValidation, login);
 app.post('/signup', userValidation, createUser);

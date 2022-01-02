@@ -1,6 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const cookie = require('cookie');
 const User = require('../models/users');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
